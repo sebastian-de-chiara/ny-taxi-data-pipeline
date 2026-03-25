@@ -2,8 +2,8 @@ terraform {
   required_version = "~> 1.14"
 
   backend "s3" {
-    profile = "ny-taxi"
-    bucket = "ny-taxi-terraform-state-013453151250"
+    profile      = "ny-taxi"
+    bucket       = "ny-taxi-terraform-state-013453151250"
     key          = "bootstrap/terraform.tfstate"
     region       = "ap-southeast-2"
     use_lockfile = true
