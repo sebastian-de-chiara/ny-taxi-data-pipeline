@@ -1,0 +1,66 @@
+[project]
+name = "ny-taxi-data-pipeline"
+version = "0.1.0"
+description = "End-to-end data pipeline for NYC taxi trip data"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dbt-core>=1.11.7",
+    "dbt-snowflake>=1.11.3",
+    "structlog>=25.5.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest",
+    "pytest-cov",
+]
+
+[tool.ruff]
+target-version = "py313"
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear (common gotchas)
+    "SIM", # flake8-simplify
+    "LOG", # flake8-logging (you're using structlog, still useful)
+    "ANN", # flake8-annotations (enforce type hints)
+    "D",   # pydocstyle (enforce docstrings)
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = [
+    "E501",   # long lines fine in tests (descriptive test names)
+    "ANN",    # don't require type hints in tests
+    "D",      # don't require docstrings in tests
+]
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.coverage.run]
+source = ["src"]
+omit = [
+    "src/**/__init__.py",
+]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true
+exclude_lines = [
+    "if __name__ == .__main__.",
+    "pragma: no cover",
+]
